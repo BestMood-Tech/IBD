@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval'
+import 'rxjs/add/observable/interval';
 import { Total } from '../../shared/models/total.model';
 
 @Injectable()
