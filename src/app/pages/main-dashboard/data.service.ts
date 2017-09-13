@@ -1,41 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
+import { Observable } from 'rxjs/Observable';
 import { Total } from '../../shared/models/total.model';
 
 @Injectable()
 export class DataService {
 
-  private icons = {
-    contacts: 'fa fa-commenting-o',
-    responses: 'fa fa-book',
-    accepts: 'fa fa-address-card-o',
-    declines: 'fa fa-briefcase'
-  };
-
   public getTotalItemsData() {
-    const data = [
+    const data: Total[] = [
       {
         name: 'contacts',
         icon: 'fa fa-commenting-o',
-        value: this.randomNumber(50, 200)
+        value: this.randomNumber(50, 200),
       },
       {
         name: 'responses',
         icon: 'fa fa-book',
-        value: this.randomNumber(30, 100)
+        value: this.randomNumber(30, 100),
       },
       {
         name: 'accepts',
         icon: 'fa fa-address-card-o',
-        value: this.randomNumber(60, 80)
+        value: this.randomNumber(60, 80),
       },
       {
         name: 'declines',
         icon: 'fa fa-address-card-o',
-        value: this.randomNumber(10, 50)
-      }
+        value: this.randomNumber(10, 50),
+      },
     ];
     return Observable.of(data).delay(500);
   }

@@ -9,8 +9,8 @@ import { DataService } from '../data.service';
 })
 
 export class DetailsComponent implements OnInit {
-  public pieChannels: any[] = [];
-  public pieView: any[] = [1000, 200];
+  public pieChannels = [];
+  public pieView = [1000, 200];
   public colorScheme = {
     domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
   };
