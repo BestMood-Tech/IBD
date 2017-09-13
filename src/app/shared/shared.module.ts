@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { DataService } from './services/data.service';
+// import { DataService } from './services/data.service';
 
 @NgModule({})
 
@@ -8,7 +8,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        DataService,
+        // DataService,
       ],
     };
   }

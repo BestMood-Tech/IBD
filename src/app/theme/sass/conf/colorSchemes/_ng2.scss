@@ -1,3 +1,4 @@
+@import "../variables";
 $default: #333333; // default colors for layout
 $body-bg: #F0F3F4; // default bg color
 
@@ -74,7 +75,7 @@ $hoverlink: darken($activelink, 20%);
     height: 100%;
     top: 0;
     left: 0;
-    // background: url($mainBgUrl) no-repeat center center;
+   background: url($mainBgUrl) no-repeat center center;
     background-size: cover;
     will-change: transform;
     z-index: 0;
