@@ -3,6 +3,7 @@ import { DataService } from '../../../shared/services/data.service';
 import { Total } from '../../../shared/models/total.model';
 
 interface TotalItem {
+  key: string;
   icon: string;
   description: string;
   value: number;
@@ -16,10 +17,10 @@ interface TotalItem {
 export class TotalItemsChartComponent implements OnInit {
   public totals: TotalItem[] = [];
   private icons = {
-    contacts: 'fa fa-commenting-o',
-    responses: 'fa fa-book',
-    accepts: 'fa fa-address-card-o',
-    declines: 'fa fa-briefcase'
+    contacts: 'fa fa-commenting-o red-icon',
+    responses: 'fa fa-book blue-icon',
+    accepts: 'fa fa-address-card-o green-icon',
+    declines: 'fa fa-briefcase yellow-icon'
   };
 
   constructor(private dataService: DataService) {
@@ -29,6 +30,7 @@ export class TotalItemsChartComponent implements OnInit {
     this.dataService.getTotalItemsData().subscribe((data: Total) => {
       for (const key in data) {
         this.totals.push({
+          key,
           icon: this.icons[key],
           description: `total.${key}`,
           value: data[key]

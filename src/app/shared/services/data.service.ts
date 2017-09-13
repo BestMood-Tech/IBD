@@ -23,10 +23,10 @@ export class DataService {
       data.push({
         hour: new Date(2017, 9, 12, i),
         total: new Total({
-          contacts: this.randomNumber(50, 200),
-          responses: this.randomNumber(30, 100),
-          accepts: this.randomNumber(60, 80),
-          declines: this.randomNumber(10, 50)
+          contacts: this.randomNumber(100, 125),
+          responses: this.randomNumber(40, 70),
+          accepts: this.randomNumber(120, 150),
+          declines: this.randomNumber(65, 90)
         })
       });
     }

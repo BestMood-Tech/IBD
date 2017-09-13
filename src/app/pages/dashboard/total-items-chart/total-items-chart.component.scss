@@ -17,3 +17,28 @@
   justify-content: center;
   margin: 10px;
 }
+
+.blue-icon {
+  color: rgba(75, 150, 205, 0.8);
+}
+
+.red-icon {
+  color: rgba(219, 29, 40, 0.8);
+}
+
+.green-icon {
+  color: rgba(0, 168, 117, 0.8);
+}
+
+.yellow-icon {
+  color: rgba(245, 249, 11, 0.8);
+}
+
+.route {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+}
