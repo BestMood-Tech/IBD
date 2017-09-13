@@ -35,30 +35,3 @@
   }
 }
 
-.block-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 10px 5px;
-}
-
-.route {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  cursor: pointer;
-}
-
-:host /deep/ {
-  .legend-label-text {
-    color: white;
-  }
-  svg {
-    .tick, [ngx-charts-axis-label], .label {
-
-      fill: white;
-    }
-  }
-}

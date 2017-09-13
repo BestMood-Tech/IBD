@@ -22,7 +22,6 @@ import { TrafficChart } from './trafficChart';
 import { TrafficChartService } from './trafficChart/trafficChart.service';
 import { UsersMap } from './usersMap';
 import { UsersMapService } from './usersMap/usersMap.service';
-import { DetailsComponent } from '../main-dashboard/details/details.component';
 
 @NgModule({
   imports: [
@@ -35,7 +34,6 @@ import { DetailsComponent } from '../main-dashboard/details/details.component';
   declarations: [
     PopularApp,
     PieChartComponent,
-    DetailsComponent,
     TrafficChart,
     UsersMap,
     LineChart,

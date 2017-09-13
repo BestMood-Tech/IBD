@@ -13,7 +13,6 @@ export class AccountGuard implements CanLoad {
       this.authorizationService.auth.subscribe((data) => {
         if (data) {
           resolve(true);
-          this.router.navigateByUrl('dashboard');
         } else {
           resolve(false);
           this.router.navigateByUrl('login');

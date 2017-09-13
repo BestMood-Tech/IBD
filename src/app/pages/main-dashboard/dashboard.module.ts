@@ -8,6 +8,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { DashboardComponent } from './dashboard.component';
 import { routing } from './dashboard.routing';
+import { DetailsComponent } from './details/details.component';
+import { TotalComponent } from './total/total.component';
 
 @NgModule({
   imports: [
@@ -20,6 +22,8 @@ import { routing } from './dashboard.routing';
   ],
   declarations: [
     DashboardComponent,
+    DetailsComponent,
+    TotalComponent
   ],
   providers: [],
 })
