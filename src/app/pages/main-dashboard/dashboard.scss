@@ -50,3 +50,15 @@
   right: 0;
   cursor: pointer;
 }
+
+:host /deep/ {
+  .legend-label-text {
+    color: white;
+  }
+  svg {
+    .tick, [ngx-charts-axis-label], .label {
+
+      fill: white;
+    }
+  }
+}
