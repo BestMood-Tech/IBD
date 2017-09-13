@@ -11,7 +11,7 @@
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <ngx-charts-line-chart
         [view]="view"
-        [scheme]="colorScheme"
+        [scheme]="colorSchemeChart"
         [results]="channels"
         [gradient]="gradient"
         [xAxis]="showXAxis"
@@ -24,7 +24,7 @@
         [autoScale]="autoScale"
         [curve]="curve"
         [timeline]="timeline"
-        [xAxisTickFormatting]="xAxisTickFormating"
+        [xAxisTickFormatting]="xAxisTickFormatting"
         (select)="onSelect($event)">
     </ngx-charts-line-chart>
   </div>

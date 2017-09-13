@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import * as d3 from 'd3';
+import 'rxjs/add/operator/mergeMap';
 import { Total } from '../../../shared/models/total.model';
 
 @Component({
@@ -16,6 +17,10 @@ export class DetailsComponent implements OnInit {
   public colorScheme = {
     domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
   };
+  public colorSchemeChart = {
+    domain: []
+  };
+
   public channel: string = '';
   public status = 'online';
 
@@ -34,7 +39,7 @@ export class DetailsComponent implements OnInit {
   public yAxisLabel = 'Number';
   public timeline = true;
   public curve = d3.curveNatural;
-  public xAxisTickFormating = (x) => x.toLocaleTimeString();
+  public xAxisTickFormatting = (x) => x.toLocaleTimeString();
 
   // line, area
   public autoScale = false;
@@ -44,24 +49,36 @@ export class DetailsComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.channels.push({ name: 'contacts', series: [] });
-    this.dataService.getContactsRealtime()
-      .subscribe((contacts) => {
-        const now = new Date();
+    this.route.params.mergeMap((params: { channel: string }) => {
+      this.channel = params.channel;
+      this.channels.push({ name: this.channel, series: [] });
+      switch (this.channel) {
+        case 'contacts':
+          this.colorSchemeChart.domain.push(this.colorScheme.domain[0]);
+          return this.dataService.getContactsRealtime();
+        case 'responses':
+          this.colorSchemeChart.domain.push(this.colorScheme.domain[1]);
+          return this.dataService.getResponsesRealtime();
+        case 'accepts':
+          this.colorSchemeChart.domain.push(this.colorScheme.domain[2]);
+          return this.dataService.getAcceptsRealtime();
+        case 'declines':
+          this.colorSchemeChart.domain.push(this.colorScheme.domain[3]);
+          return this.dataService.getDeclinesRealtime();
+      }
+    })
+      .subscribe((value) => {
         this.channels[0].series.push(
-          { name: now, value: contacts });
+          { name: new Date(), value });
         if (this.channels[0].series.length > 15) {
           this.channels[0].series.shift();
         }
         this.channels = this.channels.slice();
       });
-    this.route.params.subscribe((params: { channel: string }) => {
-      this.channel = params.channel;
+
+    this.dataService.getTotalItemsData().subscribe((data) => {
+      this.pieChannels = data.map((item) => ({ name: item.name, value: item.value }));
     });
-    this.dataService.getTotalItemsData()
-      .subscribe((data) => {
-        this.pieChannels = data.map((item: Total) => ({ name: item.name, value: item.value }));
-      });
   }
 
   public onSelect(event) {
