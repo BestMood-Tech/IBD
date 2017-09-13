@@ -4,7 +4,7 @@ export class User {
 
   constructor(dataSource: any) {
     for (const key in dataSource) {
-      this[key] = dataSource[key]
+      this[key] = dataSource[key];
     }
   }
 }

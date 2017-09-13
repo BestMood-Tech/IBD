@@ -31,7 +31,7 @@ export class DataService {
         value: this.randomNumber(10, 50),
       },
     ];
-    return Observable.of(data).delay(500);
+    return Observable.of(data.map((item) => new Total(item))).delay(500);
   }
 
   private randomNumber(min: number, max: number): number {

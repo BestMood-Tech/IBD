@@ -6,7 +6,7 @@ import { PAGES_MENU } from './pages.menu';
 
 @Component({
   selector: 'nga-pages',
-  templateUrl: 'pages.component.html'
+  templateUrl: 'pages.component.html',
 })
 
 export class PagesComponent implements OnInit {

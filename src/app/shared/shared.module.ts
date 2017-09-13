@@ -10,7 +10,7 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         AuthorizationService,
-        AccountGuard
+        AccountGuard,
       ],
     };
   }

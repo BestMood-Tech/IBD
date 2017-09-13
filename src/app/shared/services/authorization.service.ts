@@ -17,11 +17,11 @@ export class AuthorizationService {
     localStorage.setItem('token', '123456789');
     this.user = new User({
       firstName: 'QWERTY',
-      secondName: 'ZXCVN'
+      secondName: 'ZXCVN',
     });
     localStorage.setItem('user', JSON.stringify(this.user));
     this.auth.emit(this.user);
-    this.router.navigateByUrl('dashboard')
+    this.router.navigateByUrl('dashboard');
   }
 
   public checkAuth() {
@@ -32,7 +32,7 @@ export class AuthorizationService {
         this.user = new User(JSON.parse(localStorage.getItem('user')));
         this.auth.emit(this.user);
       } else {
-        this.router.navigateByUrl('login')
+        this.router.navigateByUrl('login');
       }
     } catch (err) {
       console.log(err);

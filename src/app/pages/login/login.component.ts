@@ -5,7 +5,7 @@ import { AuthorizationService } from '../../shared/services/authorization.servic
 @Component({
   selector: 'nga-login',
   templateUrl: './login.html',
-  styleUrls: ['./login.scss']
+  styleUrls: ['./login.scss'],
 })
 export class LoginComponent {
 
@@ -18,7 +18,7 @@ export class LoginComponent {
               private authorizationService: AuthorizationService) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
     });
 
     this.email = this.form.controls['email'];
