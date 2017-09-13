@@ -13,7 +13,7 @@ enum ApiVersion {
 }
 
 export interface RequestParams {
-  headers?: Array<{ name: string, value: string }>;
+  headers?: { name: string, value: string }[];
   selectors?: string[];
   searchParams?: any;
 }
@@ -26,7 +26,6 @@ export class HttpService {
 
   constructor(private http: Http,
               private translate: TranslateService) {
-    this.initialization();
   }
 
   get key() {
@@ -84,7 +83,7 @@ export class HttpService {
     let headers;
     switch (v) {
       case '5':
-        headers = new Headers(this.auth);
+        // headers = new Headers(this.auth);
         headers.append('Accept-Language', this.langCode);
         break;
       default:
