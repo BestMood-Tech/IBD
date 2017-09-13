@@ -63,11 +63,11 @@ export class SoapService {
       if (4 === xmlHttp.readyState) {
         let responseNodeList: NodeListOf<Element>;
 
-        if (undefined === responseRoot) {
-          responseNodeList = xmlHttp.responseXML;
-        } else {
-          responseNodeList = xmlHttp.responseXML.getElementsByTagNameNS('*', responseRoot);
+        if (!responseRoot) {
+          return;
         }
+        responseNodeList = xmlHttp.responseXML.getElementsByTagNameNS('*', responseRoot);
+
 
         if (null !== this.xmlResponseHandlerValue) {
           this.xmlResponseHandlerValue(responseNodeList);

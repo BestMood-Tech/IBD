@@ -6,15 +6,14 @@ import { Total } from '../../shared/models/total.model';
 
 @Injectable()
 export class DataService {
-  public mockTotals: Total = new Total({
-    contacts: this.randomNumber(50, 200),
-    responses: this.randomNumber(30, 100),
-    accepts: this.randomNumber(60, 80),
-    declines: this.randomNumber(10, 50),
-  });
 
   public getTotalItemsData(): Observable<Total> {
-    return Observable.of(this.mockTotals).delay(100);
+    return Observable.of({
+      contacts: this.randomNumber(50, 200),
+      responses: this.randomNumber(30, 100),
+      accepts: this.randomNumber(60, 80),
+      declines: this.randomNumber(10, 50),
+    }).delay(100);
   }
 
   public getTotalData() {

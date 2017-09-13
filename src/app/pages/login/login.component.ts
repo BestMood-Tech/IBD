@@ -28,8 +28,7 @@ export class LoginComponent {
   public onSubmit(values: Object): void {
     this.submitted = true;
     if (this.form.valid) {
-      this.authorizationService.authorization(this.form)
-        .subscribe();
+      this.authorizationService.authorization(this.form);
     }
   }
 }

@@ -22,10 +22,7 @@ import { TrafficChart } from './trafficChart';
 import { TrafficChartService } from './trafficChart/trafficChart.service';
 import { UsersMap } from './usersMap';
 import { UsersMapService } from './usersMap/usersMap.service';
-import { TotalItemsChartComponent } from './total-items-chart/total-items-chart.component';
-import { TotalChartComponent } from './total-chart/total-chart.component';
 import { DetailsComponent } from './details/details.component';
-import { TotalsComponent } from './totals/totals.component';
 
 @NgModule({
   imports: [
@@ -38,10 +35,7 @@ import { TotalsComponent } from './totals/totals.component';
   declarations: [
     PopularApp,
     PieChartComponent,
-    TotalItemsChartComponent,
-    TotalChartComponent,
     DetailsComponent,
-    TotalsComponent,
     TrafficChart,
     UsersMap,
     LineChart,
