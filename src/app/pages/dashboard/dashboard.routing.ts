@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Dashboard } from './dashboard.component';
 import { ModuleWithProviders } from '@angular/core';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from '../main-dashboard/details/details.component';
 
 // noinspection TypeScriptValidateTypes
 export const routes: Routes = [

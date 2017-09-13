@@ -19,6 +19,7 @@ export class AccountGuard implements CanLoad {
           this.router.navigateByUrl('login');
         }
       });
+      this.authorizationService.checkAuth();
     });
   }
 }

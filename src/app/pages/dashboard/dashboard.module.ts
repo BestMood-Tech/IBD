@@ -22,7 +22,7 @@ import { TrafficChart } from './trafficChart';
 import { TrafficChartService } from './trafficChart/trafficChart.service';
 import { UsersMap } from './usersMap';
 import { UsersMapService } from './usersMap/usersMap.service';
-import { DetailsComponent } from './details/details.component';
+import { DetailsComponent } from '../main-dashboard/details/details.component';
 
 @NgModule({
   imports: [
