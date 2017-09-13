@@ -1,0 +1,54 @@
+:host /deep/ {
+  .legend-label-text {
+    color: white;
+  }
+  svg {
+    .tick, [ngx-charts-axis-label], .label {
+
+      fill: white;
+    }
+  }
+}
+
+.capitalized {
+  text-transform: capitalize;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    margin-left: 10px;
+  }
+}
+
+.traffic-light {
+  display: flex;
+  width: 110px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  border-radius: 6px;
+  padding: 5px;
+  list-style: none;
+  margin-bottom: 0;
+
+  li {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: gray;
+    &.active {
+      &:nth-child(1) {
+        background-color: rgb(139, 210, 47);
+      }
+      &:nth-child(2) {
+        background-color: rgb(231, 186, 8);
+      }
+      &:nth-child(3) {
+        background-color: rgb(249, 83, 114);
+      }
+    }
+  }
+}

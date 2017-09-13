@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as d3 from 'd3';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
+import * as d3 from 'd3';
 
 @Component({
   selector: 'nga-details',
@@ -10,12 +11,18 @@ import { DataService } from '../data.service';
 
 export class DetailsComponent implements OnInit {
 
-  public channels: any[] = [];
   public pieChannels: any[] = [];
+  public pieView: any[] = [1000, 200];
+  public colorScheme = {
+    domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
+  };
+  public channel: string = '';
+  public status = 'online';
+
+  public channels: any[] = [];
 
 
   public view: any[] = [1000, 400];
-  public pieView: any[] = [1000, 200];
   // options
   public showXAxis = true;
   public showYAxis = true;
@@ -29,14 +36,11 @@ export class DetailsComponent implements OnInit {
   public curve = d3.curveNatural;
   public xAxisTickFormating = (x) => x.toLocaleTimeString();
 
-  public colorScheme = {
-    domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
-  };
-
   // line, area
   public autoScale = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private route: ActivatedRoute,
+    private dataService: DataService) {
   }
 
   public ngOnInit() {
@@ -51,6 +55,12 @@ export class DetailsComponent implements OnInit {
         }
         this.channels = this.channels.slice();
       })
+    this.route.params.subscribe((params: { channel: string }) => {
+      this.channel = params.channel;
+    });
+    this.dataService.getTotalItemsData().subscribe((data) => {
+      this.pieChannels = data.map((item) => ({ name: item.name, value: item.value }));
+    });
   }
 
   public onSelect(event) {

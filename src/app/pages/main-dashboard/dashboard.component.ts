@@ -1,25 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/observable/forkJoin';
-import { DataService } from './data.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'nga-dashboard',
   styleUrls: ['./dashboard.component.scss'],
-  templateUrl: 'dashboard.component.html',
+  template: '<router-outlet></router-outlet>',
 })
-export class DashboardComponent implements OnInit {
-  public totals: any[] = [];
-  public colorScheme = {
-    domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
-  };
-
-  constructor(private dataService: DataService) {
-  }
-
-  public ngOnInit() {
-    this.dataService.getTotalItemsData()
-      .subscribe((data) => {
-        this.totals = data;
-      });
-  }
+export class DashboardComponent {
 }
