@@ -10,22 +10,22 @@
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <ngx-charts-line-chart
-        [view]="view"
-        [scheme]="colorSchemeChart"
-        [results]="channels"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [autoScale]="autoScale"
-        [curve]="curve"
-        [timeline]="timeline"
-        [xAxisTickFormatting]="xAxisTickFormatting"
-        (select)="onSelect($event)">
+      [view]="view"
+      [scheme]="colorSchemeChart"
+      [results]="channels"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale"
+      [curve]="curve"
+      [timeline]="timeline"
+      [xAxisTickFormatting]="xAxisTickFormatting"
+      (select)="onSelect($event)">
     </ngx-charts-line-chart>
   </div>
 </div>
@@ -39,3 +39,32 @@
     </ngx-charts-pie-grid>
   </div>
 </div>
+<ng-container *ngIf="selectedChannel">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="zoom-buttons">
+        <button class="zoom-button" *ngFor="let button of zoomButtons" (click)="zoomGraph(button)">{{button}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="row extra-graph">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorSchemeChart"
+        [results]="currentChannel"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [curve]="curve"
+        [timeline]="timeline"
+        (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </div>
+  </div>
+</ng-container>

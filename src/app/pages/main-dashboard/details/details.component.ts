@@ -18,21 +18,23 @@ export class DetailsComponent implements OnInit {
     domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
   };
   public colorSchemeChart = {
-    domain: []
+    domain: [],
   };
 
   public channel: string = '';
   public status = 'online';
 
-  public channels: any[] = [];
+  public channels = [];
 
+  public selectedChannel;
+  public currentChannel = [];
 
-  public view: any[] = [1000, 400];
+  public view = [1000, 400];
   // options
   public showXAxis = true;
   public showYAxis = true;
   public gradient = false;
-  public showLegend = true;
+  public showLegend = false;
   public showXAxisLabel = true;
   public xAxisLabel = 'Hours';
   public showYAxisLabel = true;
@@ -43,6 +45,9 @@ export class DetailsComponent implements OnInit {
 
   // line, area
   public autoScale = false;
+
+  // buttons
+  public zoomButtons = ['1d', '5d', '1m', '3m', '6m', '1y', '5y', '10y', 'all'];
 
   constructor(private route: ActivatedRoute,
               private dataService: DataService) {
@@ -82,6 +87,33 @@ export class DetailsComponent implements OnInit {
   }
 
   public onSelect(event) {
-    console.log(event);
+    let getData;
+    switch (event.name) {
+      case 'contacts':
+        getData = this.dataService.getContacts();
+        break;
+      case 'responses':
+        getData = this.dataService.getResponses();
+        break;
+      case 'declines':
+        getData = this.dataService.getDeclines();
+        break;
+      case 'accepts':
+        getData = this.dataService.getAccepts();
+        break;
+      default:
+        return;
+    }
+    getData.subscribe((data) => {
+      this.selectedChannel = {
+        name: event.name,
+        series: data.map((item, i) => ({ name: i, value: item })),
+      };
+      console.log(this.selectedChannel);
+    });
+  }
+
+  public zoomGraph(zoomValue: string) {
+    console.log(zoomValue);
   }
 }
