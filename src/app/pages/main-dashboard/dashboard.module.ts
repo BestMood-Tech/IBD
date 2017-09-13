@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard.component';
 import { routing } from './dashboard.routing';
 import { DetailsComponent } from './details/details.component';
 import { TotalComponent } from './total/total.component';
+import { DataService } from './data.service';
 
 @NgModule({
   imports: [
@@ -23,9 +24,11 @@ import { TotalComponent } from './total/total.component';
   declarations: [
     DashboardComponent,
     DetailsComponent,
-    TotalComponent
+    TotalComponent,
   ],
-  providers: [],
+  providers: [
+    DataService,
+  ],
 })
 export class DashboardModule {
 }

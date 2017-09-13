@@ -7,13 +7,12 @@ import 'rxjs/add/observable/forkJoin';
   selector: 'nga-total',
   templateUrl: 'total.component.html',
   styleUrls: ['total.component.scss'],
-  providers: [DataService],
 })
 
 export class TotalComponent implements OnInit {
   public channels: any[] = [];
   public pieChannels: any[] = [];
-  public totals: any[] = [];
+
 
   public view: any[] = [1000, 400];
   public pieView: any[] = [1000, 200];
@@ -70,11 +69,6 @@ export class TotalComponent implements OnInit {
       this.pieChannels = this.channels
         .map((channel) => ({ name: channel.name, value: channel.series[0].value }));
     });
-
-    this.dataService.getTotalItemsData()
-      .subscribe((data) => {
-        this.totals = data;
-      });
   }
 
   public onSelect(event) {
