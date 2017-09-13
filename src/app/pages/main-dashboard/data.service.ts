@@ -72,29 +72,21 @@ export class DataService {
 
   public getContactsRealtime() {
     return Observable.interval(1000)
-      .map(() => {
-        return { date: Date.now(), value: this.randomNumber(100, 220) }
-      });
+      .map(() => this.randomNumber(100, 220));
   }
 
   public getResponsesRealtime() {
     return Observable.interval(1000)
-      .map(() => {
-        return { date: Date.now(), value: this.randomNumber(40, 100) }
-      });
+      .map(() => this.randomNumber(40, 100));
   }
 
   public getAcceptsRealtime() {
     return Observable.interval(1000)
-      .map(() => {
-        return { date: Date.now(), value: this.randomNumber(120, 150) }
-      });
+      .map(() => this.randomNumber(120, 150));
   }
 
   public getDeclinesRealtime() {
     return Observable.interval(1000)
-      .map(() => {
-        return { date: Date.now(), value: this.randomNumber(65, 90) }
-      });
+      .map(() => this.randomNumber(65, 90));
   }
 }
