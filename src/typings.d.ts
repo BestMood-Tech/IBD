@@ -31,7 +31,7 @@ interface NodeModule {
  declare var $: any;
  *
  * If you're importing a module that uses Node.js modules which are CommonJS you need to import as
- * in the files such as main.browser.ts or any file within app/
+ * in the files such as totals.browser.ts or any file within app/
  *
  import * as _ from 'lodash'
  * You can include your type definitions in this file until you create one for the @types

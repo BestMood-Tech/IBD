@@ -30,7 +30,7 @@ export type StoreType = {
 };
 
 /**
- * `AppModule` is the main entry point into Angular2's bootstraping process
+ * `AppModule` is the totals entry point into Angular2's bootstraping process
  */
 @NgModule({
   bootstrap: [App],

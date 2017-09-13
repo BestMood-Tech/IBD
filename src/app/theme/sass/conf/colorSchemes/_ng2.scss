@@ -61,7 +61,7 @@ $danger-bg: tint($danger, 20%);
 $activelink: #285eb8;
 $hoverlink: darken($activelink, 20%);
 
-// main background
+// totals background
 @mixin body-bg() {
   background-color: $body-bg;
 

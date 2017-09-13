@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AuthorizationService } from '../../shared/services/authorization.service';
 
 @Component({
   selector: 'nga-login',
@@ -13,7 +14,8 @@ export class LoginComponent {
   public password: AbstractControl;
   public submitted: boolean = false;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder,
+              private authorizationService: AuthorizationService) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -26,8 +28,8 @@ export class LoginComponent {
   public onSubmit(values: Object): void {
     this.submitted = true;
     if (this.form.valid) {
-      // your code goes here
-      // console.log(values);
+      this.authorizationService.authorization(this.form)
+        .subscribe();
     }
   }
 }

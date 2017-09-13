@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, URLSearchParams } from '@angular/http';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import 'rxjs/operator/map';
 import 'rxjs/add/operator/toPromise';
-
-enum ApiVersion {
-  V4 = 4,
-  V5 = 5
-}
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/operator/map';
 
 export interface RequestParams {
   headers?: { name: string, value: string }[];
@@ -20,80 +14,51 @@ export interface RequestParams {
 
 @Injectable()
 export class HttpService {
-  private authHeaders;
-  private host;
-  private langCode;
+  private authToken;
+  private host = 'https://myhost.com';
 
-  constructor(private http: Http,
-              private translate: TranslateService) {
-  }
-
-  get key() {
-    return this.authHeaders.Key;
-  }
-
-  get token() {
-    return this.authHeaders.Token;
-  }
-
-
-  public appHost() {
-    return this.host;
-  }
-
-  public appAuthHeaders(v = ApiVersion.V4) {
-    if (!this.authHeaders) {
-      return [];
+  constructor(private http: Http) {
+    let token: string;
+    try {
+      token = localStorage.getItem('token');
+      if (token) {
+        this.authToken = token;
+      }
+    } catch (err) {
+      console.log(err);
+      return;
     }
+  }
 
-    if (v === ApiVersion.V4) {
-      return [
-        { name: 'Key', value: this.authHeaders.Key },
-        { name: 'Token', value: this.authHeaders.Token },
-      ];
-    }
-
-    return [{ name: 'Authorization', value: this.authHeaders.Authorization }];
+  get auth() {
+    return { Authorization: this.authToken };
   }
 
   public get(url, requestParams?: RequestParams) {
     if (requestParams && requestParams.selectors) {
       url += requestParams.selectors.join(',');
     }
-    return this.http.get(this.host + url, this.getOptions(url[1], false, requestParams))
+    return this.http.get(this.host + url, this.getOptions(requestParams))
       .catch((error) => this.handleError(error, requestParams));
   }
 
   public post(url, data, requestParams?: RequestParams) {
-    return this.http.post(this.host + url, JSON.stringify(data), this.getOptions(url[1], true, requestParams))
+    return this.http.post(this.host + url, JSON.stringify(data), this.getOptions(requestParams))
       .catch((error) => this.handleError(error, requestParams, data));
   }
 
   public put(url, data, requestParams?: RequestParams) {
-    return this.http.put(this.host + url, JSON.stringify(data), this.getOptions(url[1], true, requestParams))
+    return this.http.put(this.host + url, JSON.stringify(data), this.getOptions(requestParams))
       .catch((error) => this.handleError(error, requestParams, data));
   }
 
   public delete(url, requestParams?: RequestParams) {
-    return this.http.delete(this.host + url, this.getOptions(url[1], true, requestParams))
+    return this.http.delete(this.host + url, this.getOptions(requestParams))
       .catch((error) => this.handleError(error, requestParams));
   }
 
-  private getOptions(v = '4', json = true, requestOptions?: any) {
-    let headers;
-    switch (v) {
-      case '5':
-        // headers = new Headers(this.auth);
-        headers.append('Accept-Language', this.langCode);
-        break;
-      default:
-        headers = new Headers(this.authHeaders);
-    }
-
-    if (json) {
-      headers.append('Content-Type', 'application/json');
-    }
-
+  private getOptions(requestOptions?: any) {
+    const headers = new Headers(this.auth);
     if (requestOptions && requestOptions.headers) {
       requestOptions.headers.forEach((param) => headers.append(param.name, param.value));
     }
@@ -115,17 +80,6 @@ export class HttpService {
   }
 
   private handleError(error, options, body?: any): Observable<any> {
-    /*
-        Re-enable this when salesagent doesn't return 401
-        if (error.status === 401) {
-          window.location.href = 'https://sello.io';
-        }
-     */
-
-    if (error.status === 500) {
-      this.translate.get(['OOPS', 'SOMETHING_WRONG'])
-        .subscribe((data) => alert(`${data['OOPS']}\n${data['SOMETHING_WRONG']}`));
-    }
     let errorInfo =
       `Error:
         STATUS - ${error.status}

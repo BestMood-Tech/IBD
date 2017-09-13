@@ -19,7 +19,7 @@ export class BaThemeConfigProvider {
       borderDark: '#aaaaaa',
     };
 
-    // main functional color scheme
+    // totals functional color scheme
     this.colorScheme = {
       primary: '#00abff',
       info: '#40daf1',
