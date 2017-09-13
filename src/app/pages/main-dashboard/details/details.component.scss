@@ -1,3 +1,15 @@
+:host /deep/ {
+  .legend-label-text {
+    color: white;
+  }
+  svg {
+    .tick, [ngx-charts-axis-label], .label {
+
+      fill: white;
+    }
+  }
+}
+
 .capitalized {
   text-transform: capitalize;
 }
@@ -10,6 +22,7 @@
     margin-left: 10px;
   }
 }
+
 .traffic-light {
   display: flex;
   width: 110px;

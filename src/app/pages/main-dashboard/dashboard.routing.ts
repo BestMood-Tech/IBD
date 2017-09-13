@@ -11,7 +11,7 @@ export const routes: Routes = [
     children: [
       { path: 'total', component: TotalComponent },
       { path: ':channel', component: DetailsComponent },
-      { path: '', redirectTo: 'total', pathMatch: 'full' }
+      { path: '', redirectTo: 'total', pathMatch: 'full' },
     ],
   },
 ];
