@@ -22,7 +22,12 @@ export class DataService {
     for (let i = 0; i < 24; i++) {
       data.push({
         hour: new Date(2017, 9, 12, i),
-        total: this.randomNumber(50, 200)
+        total: new Total({
+          contacts: this.randomNumber(50, 200),
+          responses: this.randomNumber(30, 100),
+          accepts: this.randomNumber(60, 80),
+          declines: this.randomNumber(10, 50)
+        })
       });
     }
     return Observable.of(data).delay(500);
