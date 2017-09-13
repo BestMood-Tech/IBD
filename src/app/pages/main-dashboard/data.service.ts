@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { Total } from '../../shared/models/total.model';
+import 'rxjs/add/observable/interval'
 
 @Injectable()
 export class DataService {
@@ -68,5 +68,33 @@ export class DataService {
       arr.push(this.randomNumber(min, max));
     }
     return arr;
+  }
+
+  public getContactsRealtime() {
+    return Observable.interval(1000)
+      .map(() => {
+        return { date: Date.now(), value: this.randomNumber(100, 220) }
+      });
+  }
+
+  public getResponsesRealtime() {
+    return Observable.interval(1000)
+      .map(() => {
+        return { date: Date.now(), value: this.randomNumber(40, 100) }
+      });
+  }
+
+  public getAcceptsRealtime() {
+    return Observable.interval(1000)
+      .map(() => {
+        return { date: Date.now(), value: this.randomNumber(120, 150) }
+      });
+  }
+
+  public getDeclinesRealtime() {
+    return Observable.interval(1000)
+      .map(() => {
+        return { date: Date.now(), value: this.randomNumber(65, 90) }
+      });
   }
 }
