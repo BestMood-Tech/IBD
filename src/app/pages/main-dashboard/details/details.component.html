@@ -1,1 +1,10 @@
-123
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <ngx-charts-pie-grid
+      [view]="pieView"
+      [scheme]="colorScheme"
+      [results]="pieChannels"
+      (select)="onSelect($event)">
+    </ngx-charts-pie-grid>
+  </div>
+</div>

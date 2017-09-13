@@ -5,7 +5,6 @@ import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-
 import { DashboardComponent } from './dashboard.component';
 import { routing } from './dashboard.routing';
 import { DetailsComponent } from './details/details.component';

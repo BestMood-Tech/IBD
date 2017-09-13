@@ -1,3 +1,34 @@
+.pie-chart-item {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.2rem;
+  .chart {
+    font-size: 2.5rem;
+  }
+  .description-stats {
+    font-size: 1.5rem;
+  }
+  &.active {
+    background-color: rgba(64, 102, 165, 0.5);
+  }
+}
+
+.block-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 5px;
+}
+
+.details {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+}
+
 :host /deep/ {
   .legend-label-text {
     color: white;
