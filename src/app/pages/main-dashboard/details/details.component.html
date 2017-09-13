@@ -1,3 +1,13 @@
+<h1 class="text-center"><span class="capitalized">{{channel}}</span> details</h1>
+<div class="status">
+  <ul class="traffic-light">
+    <li [class.active]="status === 'online'"></li>
+    <li [class.active]="status === 'waiting'"></li>
+    <li [class.active]="status === 'offline'"></li>
+  </ul>
+  <span class="capitalized">{{status}}</span>
+</div>
+
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <ngx-charts-pie-grid

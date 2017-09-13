@@ -10,7 +10,7 @@ export const routes: Routes = [
     path: '', component: DashboardComponent,
     children: [
       { path: 'total', component: TotalComponent },
-      { path: ':id', component: DetailsComponent },
+      { path: ':channel', component: DetailsComponent },
       { path: '', redirectTo: 'total', pathMatch: 'full' }
     ],
   },
