@@ -1,0 +1,34 @@
+<div class="auth row">
+  <div class="auth-login col-sm-5 col-md-5 col-lg-5">
+    <div class="auth-block row">
+      <div class="offset-1 col-sm-10">
+        <h1 translate>{{'login.title'}}</h1>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+          <div class="form-group"
+               [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+            <input [formControl]="email" type="email" class="form-control" id="inputEmail"
+                   placeholder="{{'login.email' | translate}}">
+          </div>
+          <div class="form-group"
+               [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+            <input [formControl]="password" type="password" class="form-control" id="inputPassword"
+                   placeholder="{{'login.password' | translate}}">
+          </div>
+          <div class="form-group">
+            <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth" translate>
+              {{'login.login'}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="auth-signin col-sm-7 col-md-7 col-lg-7">
+    <div class="auth-block row">
+      <div class="offset-1 col-sm-10">
+        <h1 translate>{{'login.welcome'}}</h1>
+        <h2 translate>{{'login.register_account'}}</h2>
+      </div>
+    </div>
+  </div>
+</div>

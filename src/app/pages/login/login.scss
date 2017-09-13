@@ -1,0 +1,34 @@
+.auth {
+  height: 100vh;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.auth-login {
+  background: #00a875;
+  position: relative;
+}
+
+.auth-signin {
+  background: #151922;
+  position: relative;
+}
+
+.auth-block {
+  position: relative;
+  top: 35vh;
+}
+
+.form-control {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  background-color: #00a875;
+}
+
+.btn-auth {
+  background-color: #ffffff;
+  color: #00a875;
+  border-radius: 0;
+}

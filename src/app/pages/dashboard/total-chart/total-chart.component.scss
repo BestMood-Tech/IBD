@@ -1,0 +1,19 @@
+.pie-chart-item {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.2rem;
+  .chart {
+    font-size: 2.5rem;
+  }
+  .description-stats {
+    font-size: 1.5rem;
+
+  }
+}
+
+.block-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+}
