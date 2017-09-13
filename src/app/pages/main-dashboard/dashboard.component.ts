@@ -13,12 +13,6 @@ export class DashboardComponent implements OnInit {
   public channels: any[] = [];
   public pieChannels: any[] = [];
   public totals: any[] = [];
-  private icons = {
-    contacts: 'fa fa-commenting-o',
-    responses: 'fa fa-book',
-    accepts: 'fa fa-address-card-o',
-    declines: 'fa fa-briefcase'
-  };
 
   public view: any[] = [1000, 400];
   public pieView: any[] = [1000, 200];
@@ -78,14 +72,7 @@ export class DashboardComponent implements OnInit {
 
     this.dataService.getTotalItemsData()
       .subscribe((data) => {
-        for (const key in data) {
-          this.totals.push({
-            key,
-            icon: this.icons[key],
-            description: `total.${key}`,
-            value: data[key]
-          });
-        }
+        this.totals = data;
       });
   }
 

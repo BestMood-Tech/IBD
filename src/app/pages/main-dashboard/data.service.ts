@@ -7,28 +7,36 @@ import { Total } from '../../shared/models/total.model';
 @Injectable()
 export class DataService {
 
-  public getTotalItemsData(): Observable<Total> {
-    return Observable.of({
-      contacts: this.randomNumber(50, 200),
-      responses: this.randomNumber(30, 100),
-      accepts: this.randomNumber(60, 80),
-      declines: this.randomNumber(10, 50),
-    }).delay(100);
-  }
+  private icons = {
+    contacts: 'fa fa-commenting-o',
+    responses: 'fa fa-book',
+    accepts: 'fa fa-address-card-o',
+    declines: 'fa fa-briefcase'
+  };
 
-  public getTotalData() {
-    const data = [];
-    for (let i = 0; i < 24; i++) {
-      data.push({
-        hour: new Date(2017, 9, 12, i),
-        total: new Total({
-          contacts: this.randomNumber(100, 125),
-          responses: this.randomNumber(40, 70),
-          accepts: this.randomNumber(120, 150),
-          declines: this.randomNumber(65, 90),
-        }),
-      });
-    }
+  public getTotalItemsData() {
+    const data = [
+      {
+        name: 'contacts',
+        icon: 'fa fa-commenting-o',
+        value: this.randomNumber(50, 200)
+      },
+      {
+        name: 'responses',
+        icon: 'fa fa-book',
+        value: this.randomNumber(30, 100)
+      },
+      {
+        name: 'accepts',
+        icon: 'fa fa-address-card-o',
+        value: this.randomNumber(60, 80)
+      },
+      {
+        name: 'declines',
+        icon: 'fa fa-address-card-o',
+        value: this.randomNumber(10, 50)
+      }
+    ];
     return Observable.of(data).delay(500);
   }
 
