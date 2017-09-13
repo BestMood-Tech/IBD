@@ -1,10 +1,11 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewContainerRef } from '@angular/core';
 import * as $ from 'jquery';
 
 import { GlobalState } from './global.state';
 import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
 import { BaThemeConfig } from './theme/theme.config';
 import { layoutPaths } from './theme/theme.constants';
+import { AuthorizationService } from './shared/services/authorization.service';
 
 /*
  * App Component
@@ -20,7 +21,7 @@ import { layoutPaths } from './theme/theme.constants';
     </main>
   `
 })
-export class App {
+export class App implements OnInit, AfterViewInit {
 
   isMenuCollapsed: boolean = false;
 
@@ -28,7 +29,8 @@ export class App {
               private _imageLoader: BaImageLoaderService,
               private _spinner: BaThemeSpinner,
               private viewContainerRef: ViewContainerRef,
-              private themeConfig: BaThemeConfig) {
+              private themeConfig: BaThemeConfig,
+              private authorizationService: AuthorizationService) {
 
     themeConfig.config();
 
@@ -37,6 +39,10 @@ export class App {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
+  }
+
+  public ngOnInit() {
+    this.authorizationService.checkAuth();
   }
 
   public ngAfterViewInit(): void {

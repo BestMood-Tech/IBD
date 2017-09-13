@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-// import { DataService } from './services/data.service';
+import { AuthorizationService } from './services/authorization.service';
+import { AccountGuard } from './guard/auth.guard';
 
 @NgModule({})
 
@@ -8,7 +9,8 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        // DataService,
+        AuthorizationService,
+        AccountGuard
       ],
     };
   }
