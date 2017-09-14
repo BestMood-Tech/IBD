@@ -90,7 +90,7 @@ export class DataService {
   }
 
   public getContactsByPeriod(period: string) {
-    if (this.currentItem !== 'contacts') {
+    /*if (this.currentItem !== 'contacts') {
       this.savedPeriod = '';
       this.savedData = [];
       this.currentItem = 'contacts';
@@ -111,11 +111,26 @@ export class DataService {
       } else {
         return Observable.of(this.savedData.slice(0, 24)).delay(500);
       }
+    }*/
+    switch (period) {
+      case this.zoomPeriods[0]:
+      case this.zoomPeriods[1]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10))).delay(500);
+      case this.zoomPeriods[2]:
+      case this.zoomPeriods[3]:
+      case this.zoomPeriods[4]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 30)).delay(500);
+      case this.zoomPeriods[5]:
+      case this.zoomPeriods[6]:
+      case this.zoomPeriods[7]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 365)).delay(500);
+      case this.zoomPeriods[8]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, 20 * 365)).delay(500);
     }
   }
 
   public getResponsesByPeriod(period: string) {
-    if (this.currentItem !== 'responses') {
+    /*if (this.currentItem !== 'responses') {
       this.savedPeriod = '';
       this.savedData = [];
       this.currentItem = 'responses';
@@ -136,11 +151,26 @@ export class DataService {
       } else {
         return Observable.of(this.savedData.slice(0, 24)).delay(500);
       }
+    }*/
+    switch (period) {
+      case this.zoomPeriods[0]:
+      case this.zoomPeriods[1]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10))).delay(500);
+      case this.zoomPeriods[2]:
+      case this.zoomPeriods[3]:
+      case this.zoomPeriods[4]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 30)).delay(500);
+      case this.zoomPeriods[5]:
+      case this.zoomPeriods[6]:
+      case this.zoomPeriods[7]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 365)).delay(500);
+      case this.zoomPeriods[8]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, 20 * 365)).delay(500);
     }
   }
 
   public getAcceptsByPeriod(period: string) {
-    if (this.currentItem !== 'accepts') {
+    /*if (this.currentItem !== 'accepts') {
       this.savedPeriod = '';
       this.savedData = [];
       this.currentItem = 'accepts';
@@ -161,11 +191,26 @@ export class DataService {
       } else {
         return Observable.of(this.savedData.slice(0, 24)).delay(500);
       }
+    }*/
+    switch (period) {
+      case this.zoomPeriods[0]:
+      case this.zoomPeriods[1]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10))).delay(500);
+      case this.zoomPeriods[2]:
+      case this.zoomPeriods[3]:
+      case this.zoomPeriods[4]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 30)).delay(500);
+      case this.zoomPeriods[5]:
+      case this.zoomPeriods[6]:
+      case this.zoomPeriods[7]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 365)).delay(500);
+      case this.zoomPeriods[8]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, 20 * 365)).delay(500);
     }
   }
 
   public getDeclinesByPeriod(period: string) {
-    if (this.currentItem !== 'declines') {
+    /*if (this.currentItem !== 'declines') {
       this.savedPeriod = '';
       this.savedData = [];
       this.currentItem = 'declines';
@@ -186,6 +231,21 @@ export class DataService {
       } else {
         return Observable.of(this.savedData.slice(0, 24)).delay(500);
       }
+    }*/
+    switch (period) {
+      case this.zoomPeriods[0]:
+      case this.zoomPeriods[1]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10))).delay(500);
+      case this.zoomPeriods[2]:
+      case this.zoomPeriods[3]:
+      case this.zoomPeriods[4]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 30)).delay(500);
+      case this.zoomPeriods[5]:
+      case this.zoomPeriods[6]:
+      case this.zoomPeriods[7]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, parseInt(period, 10) * 365)).delay(500);
+      case this.zoomPeriods[8]:
+        return Observable.of(this.getRandomSeriesPerHour(20, 220, 20  * 365)).delay(500);
     }
   }
 }

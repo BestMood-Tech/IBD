@@ -127,16 +127,68 @@ export class DetailsComponent implements OnInit {
         return;
     }
     getData.subscribe((data) => {
-      if (this.zoomPeriods.indexOf(this.currentPeriod) < 2) {
-        this.currentChannel = [];
-        this.currentChannel.push({
-          name: this.selectedChannel,
-          series: data.map((item, i) => {
-            const day = Math.floor(i / 24);
-            return ({ name: `${i - day * 24}h ${day + 1 > 0 ? `${day + 1}d` : ''}`, value: item })
-          }),
-        });
+      const period = [];
+      switch (this.currentPeriod) {
+        case this.zoomPeriods[0]:
+        case this.zoomPeriods[1]:
+          this.currentChannel = [];
+          this.currentChannel.push({
+            name: this.selectedChannel,
+            series: data.map((item, i) => {
+              const day = Math.floor(i / 24);
+              return ({ name: `${i - day * 24}h ${day + 1 > 0 ? `${day + 1}d` : ''}`, value: item })
+            }),
+          });
+          break;
+        case this.zoomPeriods[2]:
+        case this.zoomPeriods[3]:
+        case this.zoomPeriods[4]:
+          this.currentChannel = [];
+          for (let i = 0; i < data.length / 24; i++) {
+            period.push(this.Average(data.slice(i * 24, (i + 1) * 24)));
+          }
+          this.currentChannel.push({
+            name: this.selectedChannel,
+            series: period.map((item, i) => {
+              return ({ name: i, value: item })
+            }),
+          });
+          break;
+        case this.zoomPeriods[5]:
+          this.currentChannel = [];
+          for (let i = 0; i < data.length / (24 * 31); i++) {
+            period.push(this.Average(data.slice(i * 24 * 31, (i + 1) * 24 * 31)));
+          }
+          this.currentChannel.push({
+            name: this.selectedChannel,
+            series: period.map((item, i) => {
+              return ({ name: i, value: item })
+            }),
+          });
+          break;
+        case this.zoomPeriods[6]:
+        case this.zoomPeriods[7]:
+        case this.zoomPeriods[8]:
+          this.currentChannel = [];
+          for (let i = 0; i < data.length / (24  * 365); i++) {
+            period.push(this.Average(data.slice(i * 24  * 365, (i + 1) * 24 * 365)));
+          }
+          this.currentChannel.push({
+            name: this.selectedChannel,
+            series: period.map((item, i) => {
+              return ({ name: i, value: item })
+            }),
+          });
+          break;
       }
     });
+  }
+
+  private Average(data) {
+    let average = 0;
+    for (const i of data) {
+      average += i;
+    }
+    return average / data.length;
   }
 }
