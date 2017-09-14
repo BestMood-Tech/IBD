@@ -150,7 +150,7 @@ export class DetailsComponent implements OnInit {
           this.currentChannel.push({
             name: this.selectedChannel,
             series: period.map((item, i) => {
-              return ({ name: i, value: item })
+              return ({ name: i + 1, value: item })
             }),
           });
           break;
@@ -162,7 +162,7 @@ export class DetailsComponent implements OnInit {
           this.currentChannel.push({
             name: this.selectedChannel,
             series: period.map((item, i) => {
-              return ({ name: i, value: item })
+              return ({ name: i + 1, value: item })
             }),
           });
           break;
@@ -176,7 +176,7 @@ export class DetailsComponent implements OnInit {
           this.currentChannel.push({
             name: this.selectedChannel,
             series: period.map((item, i) => {
-              return ({ name: i, value: item })
+              return ({ name: i + 1, value: item })
             }),
           });
           break;
