@@ -7,6 +7,11 @@ import { Total } from '../../shared/models/total.model';
 
 @Injectable()
 export class DataService {
+  public zoomPeriods = ['1d', '5d', '1m', '3m', '6m', '1y', '5y', '10y', 'all'];
+
+  private savedData = [];
+  private savedPeriod = '';
+  private currentItem: string;
 
   public getTotalItemsData() {
     const data: Total[] = [
@@ -56,9 +61,9 @@ export class DataService {
     return Observable.of(this.getRandomSeriesPerHour(65, 90)).delay(500);
   }
 
-  private getRandomSeriesPerHour(min: number, max: number) {
+  private getRandomSeriesPerHour(min: number, max: number, days: number = 1) {
     const arr = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 24 * days; i++) {
       arr.push(this.randomNumber(min, max));
     }
     return arr;
@@ -82,5 +87,105 @@ export class DataService {
   public getDeclinesRealtime() {
     return Observable.interval(1000)
       .map(() => this.randomNumber(65, 90));
+  }
+
+  public getContactsByPeriod(period: string) {
+    if (this.currentItem !== 'contacts') {
+      this.savedPeriod = '';
+      this.savedData = [];
+      this.currentItem = 'contacts';
+    }
+    if (this.zoomPeriods.indexOf(period) === -1) {
+      return;
+    }
+
+    if (this.zoomPeriods.indexOf(period) < 2) {
+      if (this.zoomPeriods.indexOf(period) > this.zoomPeriods.indexOf(this.savedPeriod)) {
+        console.log(period, this.savedPeriod);
+        return Observable.of(this.getRandomSeriesPerHour(100, 225, parseInt(period, 10))).delay(500)
+          .map((data) => {
+            this.savedData = data;
+            this.savedPeriod = period;
+            return data;
+          });
+      } else {
+        return Observable.of(this.savedData.slice(0, 24)).delay(500);
+      }
+    }
+  }
+
+  public getResponsesByPeriod(period: string) {
+    if (this.currentItem !== 'responses') {
+      this.savedPeriod = '';
+      this.savedData = [];
+      this.currentItem = 'responses';
+    }
+    if (this.zoomPeriods.indexOf(period) === -1) {
+      return;
+    }
+
+    if (this.zoomPeriods.indexOf(period) < 2) {
+      if (this.zoomPeriods.indexOf(period) > this.zoomPeriods.indexOf(this.savedPeriod)) {
+        console.log(period, this.savedPeriod);
+        return Observable.of(this.getRandomSeriesPerHour(40, 70, parseInt(period, 10))).delay(500)
+          .map((data) => {
+            this.savedData = data;
+            this.savedPeriod = period;
+            return data;
+          });
+      } else {
+        return Observable.of(this.savedData.slice(0, 24)).delay(500);
+      }
+    }
+  }
+
+  public getAcceptsByPeriod(period: string) {
+    if (this.currentItem !== 'accepts') {
+      this.savedPeriod = '';
+      this.savedData = [];
+      this.currentItem = 'accepts';
+    }
+    if (this.zoomPeriods.indexOf(period) === -1) {
+      return;
+    }
+
+    if (this.zoomPeriods.indexOf(period) < 2) {
+      if (this.zoomPeriods.indexOf(period) > this.zoomPeriods.indexOf(this.savedPeriod)) {
+        console.log(period, this.savedPeriod);
+        return Observable.of(this.getRandomSeriesPerHour(120, 150, parseInt(period, 10))).delay(500)
+          .map((data) => {
+            this.savedData = data;
+            this.savedPeriod = period;
+            return data;
+          });
+      } else {
+        return Observable.of(this.savedData.slice(0, 24)).delay(500);
+      }
+    }
+  }
+
+  public getDeclinesByPeriod(period: string) {
+    if (this.currentItem !== 'declines') {
+      this.savedPeriod = '';
+      this.savedData = [];
+      this.currentItem = 'declines';
+    }
+    if (this.zoomPeriods.indexOf(period) === -1) {
+      return;
+    }
+
+    if (this.zoomPeriods.indexOf(period) < 2) {
+      if (this.zoomPeriods.indexOf(period) > this.zoomPeriods.indexOf(this.savedPeriod)) {
+        console.log(period, this.savedPeriod);
+        return Observable.of(this.getRandomSeriesPerHour(65, 90, parseInt(period, 10))).delay(500)
+          .map((data) => {
+            this.savedData = data;
+            this.savedPeriod = period;
+            return data;
+          });
+      } else {
+        return Observable.of(this.savedData.slice(0, 24)).delay(500);
+      }
+    }
   }
 }

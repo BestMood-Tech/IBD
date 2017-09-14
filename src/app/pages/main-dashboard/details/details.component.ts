@@ -12,17 +12,22 @@ import { Total } from '../../../shared/models/total.model';
 })
 
 export class DetailsComponent implements OnInit {
+  public channel: string = '';
+  public status = 'online';
+
   public pieChannels = [];
   public pieView = [1000, 200];
   public colorScheme = {
     domain: ['#00abff', '#e7ba08', '#8bd22f', '#f95372'],
   };
+
+  public colorSchemeChartRealtime = {
+    domain: [],
+  };
   public colorSchemeChart = {
     domain: [],
   };
 
-  public channel: string = '';
-  public status = 'online';
 
   public channels = [];
 
@@ -36,7 +41,7 @@ export class DetailsComponent implements OnInit {
   public gradient = false;
   public showLegend = false;
   public showXAxisLabel = true;
-  public xAxisLabel = 'Hours';
+  public xAxisLabel = 'Period';
   public showYAxisLabel = true;
   public yAxisLabel = 'Number';
   public timeline = true;
@@ -47,28 +52,31 @@ export class DetailsComponent implements OnInit {
   public autoScale = false;
 
   // buttons
-  public zoomButtons = ['1d', '5d', '1m', '3m', '6m', '1y', '5y', '10y', 'all'];
+  public zoomPeriods: string[];
+  public currentPeriod: string;
 
   constructor(private route: ActivatedRoute,
               private dataService: DataService) {
   }
 
   public ngOnInit() {
+    this.zoomPeriods = this.dataService.zoomPeriods;
+    this.currentPeriod = this.zoomPeriods[0];
     this.route.params.mergeMap((params: { channel: string }) => {
       this.channel = params.channel;
       this.channels.push({ name: this.channel, series: [] });
       switch (this.channel) {
         case 'contacts':
-          this.colorSchemeChart.domain.push(this.colorScheme.domain[0]);
+          this.colorSchemeChartRealtime.domain.push(this.colorScheme.domain[0]);
           return this.dataService.getContactsRealtime();
         case 'responses':
-          this.colorSchemeChart.domain.push(this.colorScheme.domain[1]);
+          this.colorSchemeChartRealtime.domain.push(this.colorScheme.domain[1]);
           return this.dataService.getResponsesRealtime();
         case 'accepts':
-          this.colorSchemeChart.domain.push(this.colorScheme.domain[2]);
+          this.colorSchemeChartRealtime.domain.push(this.colorScheme.domain[2]);
           return this.dataService.getAcceptsRealtime();
         case 'declines':
-          this.colorSchemeChart.domain.push(this.colorScheme.domain[3]);
+          this.colorSchemeChartRealtime.domain.push(this.colorScheme.domain[3]);
           return this.dataService.getDeclinesRealtime();
       }
     })
@@ -87,33 +95,48 @@ export class DetailsComponent implements OnInit {
   }
 
   public onSelect(event) {
+    this.selectedChannel = event.name;
+    this.zoomGraph(this.currentPeriod);
+  }
+
+  public zoomGraph(zoomValue: string) {
+    this.currentPeriod = zoomValue;
     let getData;
-    switch (event.name) {
+    switch (this.selectedChannel) {
       case 'contacts':
-        getData = this.dataService.getContacts();
+        this.colorSchemeChart.domain = [];
+        this.colorSchemeChart.domain.push(this.colorScheme.domain[0]);
+        getData = this.dataService.getContactsByPeriod(this.currentPeriod);
         break;
       case 'responses':
-        getData = this.dataService.getResponses();
-        break;
-      case 'declines':
-        getData = this.dataService.getDeclines();
+        this.colorSchemeChart.domain = [];
+        this.colorSchemeChart.domain.push(this.colorScheme.domain[1]);
+        getData = this.dataService.getResponsesByPeriod(this.currentPeriod);
         break;
       case 'accepts':
-        getData = this.dataService.getAccepts();
+        this.colorSchemeChart.domain = [];
+        this.colorSchemeChart.domain.push(this.colorScheme.domain[2]);
+        getData = this.dataService.getAcceptsByPeriod(this.currentPeriod);
+        break;
+      case 'declines':
+        this.colorSchemeChart.domain = [];
+        this.colorSchemeChart.domain.push(this.colorScheme.domain[3]);
+        getData = this.dataService.getDeclinesByPeriod(this.currentPeriod);
         break;
       default:
         return;
     }
     getData.subscribe((data) => {
-      this.selectedChannel = {
-        name: event.name,
-        series: data.map((item, i) => ({ name: i, value: item })),
-      };
-      console.log(this.selectedChannel);
+      if (this.zoomPeriods.indexOf(this.currentPeriod) < 2) {
+        this.currentChannel = [];
+        this.currentChannel.push({
+          name: this.selectedChannel,
+          series: data.map((item, i) => {
+            const day = Math.floor(i / 24);
+            return ({ name: `${i - day * 24}h ${day + 1 > 0 ? `${day + 1}d` : ''}`, value: item })
+          }),
+        });
+      }
     });
-  }
-
-  public zoomGraph(zoomValue: string) {
-    console.log(zoomValue);
   }
 }

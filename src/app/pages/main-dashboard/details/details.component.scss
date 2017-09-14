@@ -18,6 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
   span {
     margin-left: 10px;
   }
@@ -68,6 +69,9 @@
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
     &:hover {
       cursor: pointer;
+    }
+    &.current {
+      background-color: rgba(255, 255, 255, 0.4);
     }
   }
 }

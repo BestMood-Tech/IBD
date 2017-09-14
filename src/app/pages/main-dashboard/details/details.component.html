@@ -11,7 +11,7 @@
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <ngx-charts-line-chart
       [view]="view"
-      [scheme]="colorSchemeChart"
+      [scheme]="colorSchemeChartRealtime"
       [results]="channels"
       [gradient]="gradient"
       [xAxis]="showXAxis"
@@ -43,7 +43,8 @@
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="zoom-buttons">
-        <button class="zoom-button" *ngFor="let button of zoomButtons" (click)="zoomGraph(button)">{{button}}</button>
+        <button class="zoom-button" *ngFor="let period of zoomPeriods" (click)="zoomGraph(period)"
+                [ngClass]="{current: period === currentPeriod}">{{period}}</button>
       </div>
     </div>
   </div>
