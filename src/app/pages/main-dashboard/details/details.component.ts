@@ -13,7 +13,7 @@ import { Total } from '../../../shared/models/total.model';
 
 export class DetailsComponent implements OnInit {
   public channel: string = '';
-  public status = 'online';
+  public status = 'offline';
 
   public pieChannels = [];
   public pieView = [1000, 200];
@@ -65,6 +65,7 @@ export class DetailsComponent implements OnInit {
     this.route.params.mergeMap((params: { channel: string }) => {
       this.channel = params.channel;
       this.channels.push({ name: this.channel, series: [] });
+      this.status = 'waiting';
       switch (this.channel) {
         case 'contacts':
           this.colorSchemeChartRealtime.domain.push(this.colorScheme.domain[0]);
@@ -87,6 +88,7 @@ export class DetailsComponent implements OnInit {
           this.channels[0].series.shift();
         }
         this.channels = this.channels.slice();
+        this.status = 'online';
       });
 
     this.dataService.getTotalItemsData().subscribe((data) => {
