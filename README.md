@@ -28,7 +28,7 @@ export const PAGES_MENU = [
 Where
 
 path: pages - indicates the path to main module
-
+```
 children - indicates the sub-items of the menu
   path: 'dashboard' - indicates the path to sub-item
     title: 'general.menu.dashboard' - name for sub-item
@@ -36,3 +36,4 @@ children - indicates the sub-items of the menu
     selected: false - option for selected sub-iem
     expanded: false - option for expanded sub-iem
     order: 0 - option for set position in menu
+```
