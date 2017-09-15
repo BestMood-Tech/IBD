@@ -1,16 +1,18 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { Dashboard } from './dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 import { ModuleWithProviders } from '@angular/core';
-import { DetailsComponent } from '../main-dashboard/details/details.component';
+import { DetailsComponent } from './details/details.component';
+import { TotalComponent } from './total/total.component';
 
-// noinspection TypeScriptValidateTypes
 export const routes: Routes = [
   {
-    path: '', component: Dashboard, children: [
-    { path: 'details', component: DetailsComponent }
-  ]
-  }
+    path: '', component: DashboardComponent,
+    children: [
+      { path: 'total', component: TotalComponent },
+      { path: ':channel', component: DetailsComponent },
+      { path: '', redirectTo: 'total', pathMatch: 'full' },
+    ],
+  },
 ];
-
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);

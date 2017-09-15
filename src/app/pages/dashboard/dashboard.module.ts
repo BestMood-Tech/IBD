@@ -1,27 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
-import { Calendar } from './calendar';
-import { CalendarService } from './calendar/calendar.service';
 
-import { Dashboard } from './dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 import { routing } from './dashboard.routing';
-import { Feed } from './feed';
-import { FeedService } from './feed/feed.service';
-import { LineChart } from './lineChart';
-import { LineChartService } from './lineChart/lineChart.service';
-import { PieChartComponent } from './pieChart';
-import { PieChartService } from './pieChart/pieChart.service';
-
-import { PopularApp } from './popularApp';
-import { Todo } from './todo';
-import { TodoService } from './todo/todo.service';
-import { TrafficChart } from './trafficChart';
-import { TrafficChartService } from './trafficChart/trafficChart.service';
-import { UsersMap } from './usersMap';
-import { UsersMapService } from './usersMap/usersMap.service';
+import { DataService } from './data.service';
+import { DetailsComponent } from './details/details.component';
+import { TotalComponent } from './total/total.component';
 
 @NgModule({
   imports: [
@@ -29,28 +17,17 @@ import { UsersMapService } from './usersMap/usersMap.service';
     FormsModule,
     AppTranslationModule,
     NgaModule,
-    routing
+    NgxChartsModule,
+    routing,
   ],
   declarations: [
-    PopularApp,
-    PieChartComponent,
-    TrafficChart,
-    UsersMap,
-    LineChart,
-    Feed,
-    Todo,
-    Calendar,
-    Dashboard
+    DashboardComponent,
+    DetailsComponent,
+    TotalComponent,
   ],
   providers: [
-    CalendarService,
-    FeedService,
-    LineChartService,
-    PieChartService,
-    TodoService,
-    TrafficChartService,
-    UsersMapService
-  ]
+    DataService,
+  ],
 })
 export class DashboardModule {
 }

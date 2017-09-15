@@ -2,10 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewContainerRef } from '@angular/cor
 import * as $ from 'jquery';
 
 import { GlobalState } from './global.state';
-import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
-import { BaThemeConfig } from './theme/theme.config';
-import { layoutPaths } from './theme/theme.constants';
 import { AuthorizationService } from './shared/services/authorization.service';
+import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/services';
 
 /*
  * App Component
@@ -29,10 +27,7 @@ export class App implements OnInit, AfterViewInit {
               private _imageLoader: BaImageLoaderService,
               private _spinner: BaThemeSpinner,
               private viewContainerRef: ViewContainerRef,
-              private themeConfig: BaThemeConfig,
               private authorizationService: AuthorizationService) {
-
-    themeConfig.config();
 
     this._loadImages();
 

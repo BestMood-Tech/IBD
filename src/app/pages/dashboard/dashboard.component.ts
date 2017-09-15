@@ -1,13 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dashboard',
-  styleUrls: ['./dashboard.scss'],
-  templateUrl: './dashboard.html'
+  selector: 'nga-dashboard',
+  styleUrls: ['./dashboard.component.scss'],
+  template: '<router-outlet></router-outlet>',
 })
-export class Dashboard {
-
-  constructor() {
-  }
-
+export class DashboardComponent {
 }
