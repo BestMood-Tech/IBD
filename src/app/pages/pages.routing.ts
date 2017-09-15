@@ -20,14 +20,7 @@ export const routes: Routes = [
     component: PagesComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', loadChildren: './main-dashboard/dashboard.module#DashboardModule', canLoad: [AccountGuard] },
-      { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
-      { path: 'components', loadChildren: './components/components.module#ComponentsModule' },
-      { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
-      { path: 'ui', loadChildren: './ui/ui.module#UiModule' },
-      { path: 'forms', loadChildren: './forms/forms.module#FormsModule' },
-      { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
-      { path: 'maps', loadChildren: './maps/maps.module#MapsModule' },
+      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canLoad: [AccountGuard] },
     ],
   },
 ];

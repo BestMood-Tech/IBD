@@ -137,12 +137,12 @@ a {
 }
 
 .al-content {
-  padding: 8px 32px 8px 40px;
+  padding: 35px 35px 8px 35px;
 }
 
 @media screen and (max-width: $resXS) {
   .al-content {
-    padding: 8px 20px;
+    padding: 20px 20px;
   }
 }
 
@@ -159,22 +159,13 @@ a {
   display: block;
 }
 
-.icon-up {
-  //@include bg-nr('arrow-green-up.svg');
-  background: url('/assets/img/arrow-green-up.svg') no-repeat 0 0;
-}
-
-.icon-down {
-  background: url('/assets/img/arrow-red-down.svg') no-repeat 0 0;
-}
-
 .disable-text-selection {
   -webkit-touch-callout: none;
   user-select: none;
 }
 
 .align-right {
-  text-align: right
+  text-align: right;
 }
 
 .amcharts-chart-div > a {
