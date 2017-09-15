@@ -3,7 +3,8 @@
 All pages are in a file app/pages/pages.menu.ts
 
 For example:
-<export const PAGES_MENU = [
+```
+export const PAGES_MENU = [
    {
      path: 'pages',
      children: [
@@ -21,7 +22,8 @@ For example:
        },
      ],
    },
- ];>
+ ];
+```
 
 Where
 
