@@ -29,7 +29,7 @@ export class RealTimeChart {
     this.chart = d3.select(this.chartItem)
       .attr('width', this.width)
       .attr('height', this.height + 50);
-    this.x = d3.scaleTime().domain([0, this.width]).range([0, this.width]);
+    this.x = d3.scaleLinear().domain([0, this.width]).range([0, this.width - 14]);
     this.y = d3.scaleLinear().domain([0, this.height]).range([this.height, 0]);
     // -----------------------------------
     this.line = d3.line()
@@ -53,17 +53,17 @@ export class RealTimeChart {
 
     this.axisX = this.chart.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(0, ${this.height})`)
+      .attr('transform', `translate(20, ${this.height})`)
       .call(this.xAxis);
 
     this.axisY = this.chart.append('g')
-      .attr('transform', `translate(0, ${this.width})`)
+      .attr('transform', `translate(20)`)
       .call(this.yAxis);
 
     // // Draw the grid
-    let step = 0;
+    let step = 20;
     while (step <= this.height) {
-      this.chart.append('path').datum([{ x: 0, y: step }, { x: this.width, y: step }])
+      this.chart.append('path').datum([{ x: 20, y: step }, { x: this.width + 15, y: step }])
         .attr('class', 'grid')
         .attr('d', this.line);
       this.chart.append('path').datum([{ x: step, y: 0 }, { x: step, y: this.height }])
@@ -71,8 +71,8 @@ export class RealTimeChart {
         .attr('d', this.line);
       step += 50;
     }
-    step = 0;
-    while (step <= this.width) {
+    step = 20;
+    while (step <= this.width + 15) {
       this.chart.append('path').datum([{ x: step, y: 0 }, { x: step, y: this.height }])
         .attr('class', 'grid')
         .attr('d', this.line);
@@ -102,24 +102,24 @@ export class RealTimeChart {
     this.y.domain([this.minValue - 10, this.maxValue + 20]);
     this.axisX.transition()
       .duration(this.duration)
-      .ease(d3.easeLinear, 2)
+      .ease(d3.easeLinear, 3)
       .call(this.xAxis);
 
     this.axisY
-      // .transition()
-      // .duration(this.duration)
-      // .ease(d3.easeLinear, 2)
+      .transition()
+      .duration(this.duration)
+      .ease(d3.easeLinear, 3)
       .call(this.yAxis);
 
     this.path.attr('transform', null)
       .transition()
       .duration(this.duration)
-      .ease(d3.easeLinear, 2)
+      .ease(d3.easeLinear, 3)
       .attr('transform', `translate(${this.x(severalMinAgo)})`);
     this.areaPath.attr('transform', null)
       .transition()
       .duration(this.duration)
-      .ease(d3.easeLinear, 2)
+      .ease(d3.easeLinear, 3)
       .attr('transform', `translate(${this.x(severalMinAgo)})`);
     if (this.data.length > this.minutes * 60) {
       this.data.shift();
