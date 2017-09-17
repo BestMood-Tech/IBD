@@ -65,7 +65,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     width: 850,
     height: 350,
     duration: 500,
-    minutes: 2,
+    minutes: 1,
   };
 
   constructor(private route: ActivatedRoute,

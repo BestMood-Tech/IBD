@@ -21,6 +21,7 @@ export class RealTimeChart {
   private axisY;
   private minValue = 0;
   private maxValue = 0;
+  private startAxis = 25;
 
   constructor(options: any) {
     for (const field in options) {
@@ -29,7 +30,8 @@ export class RealTimeChart {
     this.chart = d3.select(this.chartItem)
       .attr('width', this.width)
       .attr('height', this.height + 50);
-    this.x = d3.scaleLinear().domain([0, this.width]).range([0, this.width]);
+
+    this.x = d3.scaleTime().domain([0, this.width]).range([0, this.width - 14]);
     this.y = d3.scaleLinear().domain([0, this.height]).range([this.height, 0]);
     // -----------------------------------
     this.line = d3.line()
@@ -53,27 +55,17 @@ export class RealTimeChart {
 
     this.axisX = this.chart.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(20, ${this.height})`)
+      .attr('transform', `translate(${this.startAxis}, ${this.height})`)
       .call(this.xAxis);
 
     this.axisY = this.chart.append('g')
-      .attr('transform', `translate(20)`)
+      .attr('transform', `translate(${this.startAxis})`)
       .call(this.yAxis);
 
     // // Draw the grid
-    let step = 20;
+    let step = this.startAxis;
     while (step <= this.height) {
-      this.chart.append('path').datum([{ x: 20, y: step }, { x: this.width + 15, y: step }])
-        .attr('class', 'grid')
-        .attr('d', this.line);
-      this.chart.append('path').datum([{ x: step, y: 0 }, { x: step, y: this.height }])
-        .attr('class', 'grid')
-        .attr('d', this.line);
-      step += 50;
-    }
-    step = 20;
-    while (step <= this.width + 15) {
-      this.chart.append('path').datum([{ x: step, y: 0 }, { x: step, y: this.height }])
+      this.chart.append('path').datum([{ x: this.startAxis, y: step }, { x: this.width + 14, y: step }])
         .attr('class', 'grid')
         .attr('d', this.line);
       step += 50;
@@ -84,8 +76,11 @@ export class RealTimeChart {
   }
 
   public addPoint(point) {
+    if (!this.data.length) {
+      this.minValue = point.y;
+    }
     this.minValue = this.minValue > point.y ? point.y : this.minValue;
-    this.maxValue = this.maxValue > point.y ? this.maxValue : point.y;
+    this.maxValue = this.maxValue < point.y ? point.y : this.maxValue;
     this.data.push(point);
     // Draw new line
     this.path.datum(this.data)
@@ -98,8 +93,10 @@ export class RealTimeChart {
     // Shift the chart left
     const severalMinAgo = new Date(point.x);
     severalMinAgo.setMinutes(severalMinAgo.getMinutes() - this.minutes);
+    severalMinAgo.setSeconds(severalMinAgo.getSeconds() - 1);
     this.x.domain([severalMinAgo, point.x]);
-    this.y.domain([this.minValue - 10, this.maxValue + 20]);
+    this.y.domain([this.minValue - 10, this.maxValue + 5]);
+
     this.axisX.transition()
       .duration(this.duration)
       .ease(d3.easeLinear, 3)
