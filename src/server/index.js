@@ -22,8 +22,8 @@ setInterval(() => {
   io.emit('data-for-chart-accepts', {time: Date.now(), value: getData('accepts')});
 }, 1000);
 
-http.listen(3000, () => {
-  console.log('started on port 3000');
+http.listen(4000, () => {
+  console.log('started on port 4000');
 });
 
 function getData(type) {

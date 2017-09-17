@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 export class WebSocketsService {
   public dataForChart$: Observable<any>;
 
-  private url = 'http://localhost:3000/';
+  private url = '/';
   private socket;
   private dataForChart: Subject<any>;
 
