@@ -1,13 +1,17 @@
 import * as d3 from 'd3';
 
+export interface RealTimeChartOptions {
+  width: number;
+  height: number;
+  duration: number;
+  minutes: number;
+}
+
 export class RealTimeChart {
   private data = [];
-  private width: number;
-  private height: number;
-  private duration: number;
-  private chartItem: string;
-  private minutes: number;
-  private chart;
+  private chartNode: Element;
+  private $chart;
+
   private x;
   private y;
   private line;
@@ -22,17 +26,17 @@ export class RealTimeChart {
   private minValue = 0;
   private maxValue = 0;
   private startAxis = 25;
+  private options: RealTimeChartOptions;
 
-  constructor(options: any) {
-    for (const field in options) {
-      this[field] = options[field];
-    }
-    this.chart = d3.select(this.chartItem)
-      .attr('width', this.width)
-      .attr('height', this.height + 50);
+  constructor(node: Element, options: RealTimeChartOptions) {
+    this.chartNode = node;
+    this.options = options;
+    this.$chart = d3.select(node)
+      .attr('width', this.options.width)
+      .attr('height', this.options.height + 50);
 
-    this.x = d3.scaleTime().domain([0, this.width]).range([0, this.width - 14]);
-    this.y = d3.scaleLinear().domain([0, this.height]).range([this.height, 0]);
+    this.x = d3.scaleTime().domain([0, this.options.width]).range([0, this.options.width - 14]);
+    this.y = d3.scaleLinear().domain([0, this.options.height]).range([this.options.height, 0]);
     // -----------------------------------
     this.line = d3.line()
       .x((d) => this.x(d.x))
@@ -51,20 +55,20 @@ export class RealTimeChart {
       .scale(this.x)
       .tickFormat(d3.timeFormat('%H:%M:%S'));
 
-    this.yAxis = d3.axisLeft(this.y).tickSize(-this.width);
+    this.yAxis = d3.axisLeft(this.y).tickSize(-this.options.width);
 
-    this.axisX = this.chart.append('g')
+    this.axisX = this.$chart.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(${this.startAxis}, ${this.height})`)
+      .attr('transform', `translate(${this.startAxis}, ${this.options.height})`)
       .call(this.xAxis);
 
-    this.axisY = this.chart.append('g')
+    this.axisY = this.$chart.append('g')
       .attr('transform', `translate(${this.startAxis})`)
       .call(this.yAxis);
 
     // Append the holder for line chart and fill area
-    this.path = this.chart.append('path');
-    this.areaPath = this.chart.append('path');
+    this.path = this.$chart.append('path');
+    this.areaPath = this.$chart.append('path');
   }
 
   public addPoint(point) {
@@ -84,33 +88,33 @@ export class RealTimeChart {
       .attr('d', this.lineArea);
     // Shift the chart left
     const severalMinAgo = new Date(point.x);
-    severalMinAgo.setMinutes(severalMinAgo.getMinutes() - this.minutes);
+    severalMinAgo.setMinutes(severalMinAgo.getMinutes() - this.options.minutes);
     severalMinAgo.setSeconds(severalMinAgo.getSeconds() - 1);
     this.x.domain([severalMinAgo, point.x]);
     this.y.domain([this.minValue - 10, this.maxValue + 5]);
 
     this.axisX.transition()
-      .duration(this.duration)
+      .duration(this.options.duration)
       .ease(d3.easeLinear, 3)
       .call(this.xAxis);
 
     this.axisY
       .transition()
-      .duration(this.duration)
+      .duration(this.options.duration)
       .ease(d3.easeLinear, 3)
       .call(this.yAxis);
 
     this.path.attr('transform', null)
       .transition()
-      .duration(this.duration)
+      .duration(this.options.duration)
       .ease(d3.easeLinear, 3)
       .attr('transform', `translate(${this.x(severalMinAgo)})`);
     this.areaPath.attr('transform', null)
       .transition()
-      .duration(this.duration)
+      .duration(this.options.duration)
       .ease(d3.easeLinear, 3)
       .attr('transform', `translate(${this.x(severalMinAgo)})`);
-    if (this.data.length > this.minutes * 60) {
+    if (this.data.length > this.options.minutes * 60) {
       this.data.shift();
     }
   }
