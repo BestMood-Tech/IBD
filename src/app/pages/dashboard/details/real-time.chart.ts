@@ -29,7 +29,7 @@ export class RealTimeChart {
     this.chart = d3.select(this.chartItem)
       .attr('width', this.width)
       .attr('height', this.height + 50);
-    this.x = d3.scaleLinear().domain([0, this.width]).range([0, this.width - 14]);
+    this.x = d3.scaleLinear().domain([0, this.width]).range([0, this.width]);
     this.y = d3.scaleLinear().domain([0, this.height]).range([this.height, 0]);
     // -----------------------------------
     this.line = d3.line()
