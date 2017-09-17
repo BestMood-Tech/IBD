@@ -16,7 +16,7 @@
     "ng": "ng",
     "rimraf": "rimraf",
     "changelog": "standard-changelog",
-    "start": "ng serve & node src/server/index.js",
+    "start": "ng serve --proxy-config proxy.conf.json & node src/server/index.js",
     "start:hmr": "ng serve --hmr",
     "start:aot": "ng serve --aot",
     "start:prod": "ng serve --prod",
