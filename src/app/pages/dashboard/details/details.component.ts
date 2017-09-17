@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../data.service';
 import * as d3 from 'd3';
 import 'rxjs/add/operator/mergeMap';
-import { Total } from '../../../shared/models/total.model';
+import { DataService } from '../data.service';
+import { WebSocketsService } from '../../../shared/services/web-sockets.service';
+import { RealTimeChart } from './real-time.chart';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'nga-details',
@@ -11,7 +13,9 @@ import { Total } from '../../../shared/models/total.model';
   styleUrls: ['details.component.scss'],
 })
 
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
+  @ViewChild('#area-chart') public areaChart: ElementRef;
+
   public channel: string = '';
   public status = 'offline';
 
@@ -55,8 +59,21 @@ export class DetailsComponent implements OnInit {
   public zoomPeriods: string[];
   public currentPeriod: string;
 
+  public dataRealTimeChart: any[];
+
+  private subscription: Subscription;
+  private optionForRealTime = {
+    chartItem: '#real-time-chart',
+    width: 500,
+    height: 500,
+    duration: 500,
+    max: 500,
+    step: 10,
+  };
+
   constructor(private route: ActivatedRoute,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private webSocketsService: WebSocketsService) {
   }
 
   public ngOnInit() {
@@ -94,6 +111,22 @@ export class DetailsComponent implements OnInit {
     this.dataService.getTotalItemsData().subscribe((data) => {
       this.pieChannels = data.map((item) => ({ name: item.name, value: item.value }));
     });
+    this.webSocketsService.connect();
+    const chart = new RealTimeChart(this.optionForRealTime);
+    this.subscription = this.webSocketsService.dataForChart$.subscribe((data) => {
+      // this.dataRealTimeChart = data;
+      chart.addPoint({
+        x: new Date(data.time),
+        y: data.value
+      });
+      // console.log(this.dataRealTimeChart);
+    });
+    this.webSocketsService.getDataForChart(this.channel);
+  }
+
+  public ngOnDestroy() {
+    this.webSocketsService.disconnect(this.channel);
+    this.subscription.unsubscribe();
   }
 
   public onSelect(event) {
@@ -138,7 +171,7 @@ export class DetailsComponent implements OnInit {
             name: this.selectedChannel,
             series: data.map((item, i) => {
               const day = Math.floor(i / 24);
-              return ({ name: `${i - day * 24}h ${day + 1 > 0 ? `${day + 1}d` : ''}`, value: item })
+              return ({ name: `${i - day * 24}h ${day + 1 > 0 ? `${day + 1}d` : ''}`, value: item });
             }),
           });
           break;
@@ -152,7 +185,7 @@ export class DetailsComponent implements OnInit {
           this.currentChannel.push({
             name: this.selectedChannel,
             series: period.map((item, i) => {
-              return ({ name: i + 1, value: item })
+              return ({ name: i + 1, value: item });
             }),
           });
           break;
@@ -164,7 +197,7 @@ export class DetailsComponent implements OnInit {
           this.currentChannel.push({
             name: this.selectedChannel,
             series: period.map((item, i) => {
-              return ({ name: i + 1, value: item })
+              return ({ name: i + 1, value: item });
             }),
           });
           break;
@@ -172,13 +205,13 @@ export class DetailsComponent implements OnInit {
         case this.zoomPeriods[7]:
         case this.zoomPeriods[8]:
           this.currentChannel = [];
-          for (let i = 0; i < data.length / (24  * 365); i++) {
-            period.push(this.Average(data.slice(i * 24  * 365, (i + 1) * 24 * 365)));
+          for (let i = 0; i < data.length / (24 * 365); i++) {
+            period.push(this.Average(data.slice(i * 24 * 365, (i + 1) * 24 * 365)));
           }
           this.currentChannel.push({
             name: this.selectedChannel,
             series: period.map((item, i) => {
-              return ({ name: i + 1, value: item })
+              return ({ name: i + 1, value: item });
             }),
           });
           break;
