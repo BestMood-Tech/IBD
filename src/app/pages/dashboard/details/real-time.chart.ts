@@ -51,7 +51,7 @@ export class RealTimeChart {
       .scale(this.x)
       .tickFormat(d3.timeFormat('%H:%M:%S'));
 
-    this.yAxis = d3.axisLeft(this.y);
+    this.yAxis = d3.axisLeft(this.y).tickSize(-this.width);
 
     this.axisX = this.chart.append('g')
       .attr('class', 'x axis')
@@ -62,14 +62,6 @@ export class RealTimeChart {
       .attr('transform', `translate(${this.startAxis})`)
       .call(this.yAxis);
 
-    // // Draw the grid
-    let step = this.startAxis;
-    while (step <= this.height) {
-      this.chart.append('path').datum([{ x: this.startAxis, y: step }, { x: this.width + 14, y: step }])
-        .attr('class', 'grid')
-        .attr('d', this.line);
-      step += 50;
-    }
     // Append the holder for line chart and fill area
     this.path = this.chart.append('path');
     this.areaPath = this.chart.append('path');
