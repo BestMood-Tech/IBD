@@ -59,16 +59,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
   public zoomPeriods: string[];
   public currentPeriod: string;
 
-  public dataRealTimeChart: any[];
-
   private subscription: Subscription;
   private optionForRealTime = {
     chartItem: '#real-time-chart',
-    width: 500,
-    height: 500,
+    width: 850,
+    height: 350,
     duration: 500,
-    max: 500,
-    step: 10,
+    minutes: 2,
   };
 
   constructor(private route: ActivatedRoute,
@@ -114,12 +111,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.webSocketsService.connect();
     const chart = new RealTimeChart(this.optionForRealTime);
     this.subscription = this.webSocketsService.dataForChart$.subscribe((data) => {
-      // this.dataRealTimeChart = data;
       chart.addPoint({
         x: new Date(data.time),
-        y: data.value
+        y: data.value,
       });
-      // console.log(this.dataRealTimeChart);
     });
     this.webSocketsService.getDataForChart(this.channel);
   }
