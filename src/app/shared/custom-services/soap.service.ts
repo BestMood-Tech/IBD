@@ -18,7 +18,10 @@ export class SoapService {
   private xmlResponseHandlerValue: (response: NodeListOf<Element>) => void = null;
   private jsoResponseHandlerValue: (response: {}) => void = null;
 
-  constructor(servicePort: string, servicePath: string, targetNamespace?: string) {
+  constructor() {
+  }
+
+  public setUp(servicePort: string, servicePath: string, targetNamespace?: string) {
     this.servicePort = servicePort;
     this.servicePath = servicePath;
     this.serviceUrl = servicePort + servicePath;
