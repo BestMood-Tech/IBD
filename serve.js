@@ -34,15 +34,15 @@ io.on('connection', (socket) => {
 
 });
 setInterval(() => {
-  io.emit('data-for-chart-declines', {time: Date.now(), value: getData('declines')});
-  io.emit('data-for-chart-contacts', {time: Date.now(), value: getData('contacts')});
-  io.emit('data-for-chart-responses', {time: Date.now(), value: getData('responses')});
-  io.emit('data-for-chart-accepts', {time: Date.now(), value: getData('accepts')});
+  io.emit('data-for-chart-declines', { time: Date.now(), value: getData('declines') });
+  io.emit('data-for-chart-contacts', { time: Date.now(), value: getData('contacts') });
+  io.emit('data-for-chart-responses', { time: Date.now(), value: getData('responses') });
+  io.emit('data-for-chart-accepts', { time: Date.now(), value: getData('accepts') });
 }, 1000);
 
-app.listen(3000, 'localhost', () => console.log(`Listening on port 3000`));
+server.listen(3000, 'localhost', () => console.log(`Listening on port 3000`));
 
-function getData(type) {
+function getData (type) {
   let min;
   let max;
   switch (type) {
